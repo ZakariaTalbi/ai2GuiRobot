@@ -1,0 +1,67 @@
+{
+  "name": "frontend",
+  "homepage": "https://sanahuel.github.io/ai2app",
+  "options": {
+    "proxy": "http://127.0.0.1:8000",
+    "allowedHosts": [
+      "localhost",
+      ".localhost"
+    ]
+  },
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fullcalendar/core": "^6.1.4",
+    "@fullcalendar/daygrid": "^6.1.4",
+    "@fullcalendar/interaction": "^6.1.4",
+    "@fullcalendar/react": "^6.1.4",
+    "@fullcalendar/rrule": "^6.1.4",
+    "@fullcalendar/timegrid": "^6.1.4",
+    "@shopify/draggable": "^1.0.0-beta.8",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "chart.js": "^4.2.1",
+    "gh-pages": "^5.0.0",
+    "jwt-decode": "^3.1.2",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.2.0",
+    "react-file-picker": "^0.0.6",
+    "react-native-document-picker": "^9.0.1",
+    "react-router-dom": "^6.4.4",
+    "react-scripts": "5.0.1",
+    "react-table": "^7.8.0",
+    "react-use-websocket": "^4.3.1",
+    "react-websocket": "^2.1.0",
+    "rrule": "^2.7.2",
+    "web-vitals": "^2.1.4",
+    "websocket": "^1.0.34"
+  },
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start --host 192.168.1.104",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

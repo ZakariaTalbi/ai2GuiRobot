@@ -1,0 +1,330 @@
+.nuevo-ensayo {
+  position: relative;
+  padding-right: 10px;
+  align-items: left;
+}
+
+.container-header {
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-top: 8px;
+}
+
+.container-header span {
+  font-weight: 500;
+}
+.border-div {
+  position: relative;
+  left: 5px;
+  width: 200px;
+  padding-top: 1px;
+  margin-bottom: 0px;
+  border-bottom: 1.5px solid #f1f1f1;
+}
+
+/* .buttons-header {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.buttons-header button {
+  pointer-events: auto;
+  cursor: pointer;
+  position: inherit;
+  align-content: center;
+  vertical-align: middle;
+  margin-right: 5px;
+  right: -3px;
+  bottom: 2px;
+  width: 23px;
+  height: 23px;
+  margin-top: 7px;
+  border-radius: 100%;
+  border-style: none;
+  border-width: 1px;
+  border-color: rgb(224, 224, 224);
+  background-color: rgb(255, 255, 255);
+}
+
+.buttons-header button:hover {
+  background-color: rgb(255, 255, 255);
+}
+
+#auto-span {
+  left: -120%;
+  top: 0px;
+}
+
+#manual-span {
+  left: -105%;
+  top: 0px;
+}
+
+#div1 {
+  pointer-events: none;
+}
+
+#auto-button:hover + #auto-span {
+  visibility: visible;
+  opacity: 0.97;
+}
+
+#manual-button:hover + #manual-span {
+  visibility: visible;
+  opacity: 0.97;
+} */
+
+.container-content {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  margin-left: 8px;
+}
+
+.input-div {
+  margin-left: 0px;
+  margin-right: 100px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-height: 45.2px;
+}
+
+.input-div span {
+  display: inline-block;
+  width: 200px;
+}
+
+.input-field {
+  /* position: absolute;
+  left: 228px; */
+  display: inline-block;
+  border-color: rgb(224, 224, 224);
+  border-style: solid;
+  border-radius: 3px;
+  border-width: 1px;
+  color: rgb(52, 52, 52); /*cambiar */
+}
+
+.input-time {
+  border-color: rgb(224, 224, 224);
+  border-style: solid;
+  border-radius: 3px;
+  border-width: 1px;
+}
+
+.tabla-horario {
+  min-height: 130px;
+  padding-bottom: 13px;
+}
+
+.header-tabla {
+  display: flex;
+  margin: 10px;
+  padding-top: 8px;
+}
+
+.nueva-button {
+  position: relative;
+  align-content: center;
+  vertical-align: middle;
+  right: -3px;
+  bottom: 2px;
+  width: 23px;
+  height: 23px;
+  margin-top: 7px;
+  border-radius: 100%;
+  border-style: none;
+  border-width: 1px;
+  border-color: rgb(224, 224, 224);
+  background-color: rgb(255, 255, 255);
+}
+
+.condicion-div {
+  background-color: white;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: rgb(243, 243, 243);
+  color: black;
+}
+
+.texto-horario {
+  padding-left: 0px;
+  flex: 1;
+}
+
+.nueva-hora {
+  flex: 1;
+  text-align: right;
+  padding-right: 5px;
+}
+
+.horario {
+  margin-top: 15px;
+}
+
+.crear-ensayo {
+  box-shadow: 1px 1px 7px rgb(228, 228, 228);
+  border-style: none;
+}
+
+.crear-ensayo span {
+  font-weight: 500;
+  color: white;
+  background-color: rgb(38, 135, 232);
+  padding: 15px;
+  height: 40px;
+}
+
+.crear-button {
+  box-shadow: 1px 1px 7px rgb(228, 228, 228);
+  margin: 10px;
+  margin-left: 25px;
+  margin-bottom: 20px;
+  height: 45px;
+  width: 45px;
+  border-style: none;
+  border-radius: 50%;
+  background-color: rgb(49, 148, 247);
+  color: rgb(0, 0, 0); /*cambiar */
+}
+
+.crear-button img {
+  height: 27px;
+  filter: invert(100%);
+}
+
+.crear-button:hover {
+  background-color: rgb(44, 142, 240);
+}
+
+.crear-div {
+  height: 85px;
+}
+
+.hidden-span {
+  color: white;
+  background-color: #333;
+  padding: 3px;
+  font-size: 14px;
+  border-radius: 3px;
+  position: relative;
+  left: -77px;
+  top: 35px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s linear;
+  transition-delay: 0s;
+}
+
+.crear-button:hover + #crear-span {
+  visibility: visible;
+  opacity: 0.97;
+}
+
+.fila-tabla {
+  display: flex;
+  flex-direction: row;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.hora-tabla {
+  flex: 1;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.nombre-tabla {
+  flex: 1;
+  color: #555;
+  font-style: italic;
+}
+
+.eliminar-fila {
+  flex: 1;
+}
+
+.button-eliminar-fila {
+  display: none;
+  position: relative;
+  text-align: center;
+  left: 230px;
+  top: 1px;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  background-color: rgba(220, 220, 220, 0);
+  border-style: hidden;
+  color: #333;
+  font-size: 15px;
+}
+
+.button-eliminar-fila img {
+  filter: invert(40%);
+  width: 13px;
+}
+
+.input-div:hover .button-eliminar-fila {
+  display: inline;
+}
+
+.button-eliminar-fila:hover img {
+  filter: invert(20%);
+}
+
+.info {
+  position: relative;
+  width: 18px;
+  vertical-align: middle;
+  left: 4px;
+  filter: invert(33%);
+}
+
+.info:hover {
+  cursor: pointer;
+}
+
+#ventana-span {
+  position: relative;
+  vertical-align: middle;
+  top: 0px;
+  left: 10px;
+  max-width: 250px;
+  text-align: center;
+  z-index: 100;
+}
+
+#info-ventana:hover + #ventana-span {
+  visibility: visible;
+  opacity: 0.97;
+}
+
+#freq-span {
+  font-size: small;
+  position: relative;
+  left: -324px;
+  color: #555;
+}
+
+#h-span {
+  font-size: small;
+  position: relative;
+  left: 6px;
+  width: 22px;
+  color: #555;
+}
+
+#min-span {
+  font-size: small;
+  position: relative;
+  left: 6px;
+  color: #555;
+}
+
+#init-span {
+  font-size: small;
+  position: relative;
+  left: 203px;
+  color: #555;
+}

@@ -1,0 +1,199 @@
+.camara-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.camara-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5em;
+}
+
+.camara-controles {
+  padding-top: 7.2em;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 19%;
+}
+
+/* Slider Styles */
+
+.slider-title {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: roboto, sans-serif;
+  font-weight: bolder;
+  font-size: 1.2em;
+  margin-bottom: 0.8em;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5em;
+}
+
+.slider-button {
+  width: 25px;
+  height: 25px;
+  background-color: #9ab5ca;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  margin: 0 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: #555;
+}
+
+.slider-button:hover {
+  background-color: #ddd;
+}
+
+.slider-button.right::before {
+  content: ">";
+  font-weight: bold;
+}
+
+.slider-button.left::before {
+  content: "<";
+  font-weight: bold;
+}
+
+.slider {
+  flex: 1;
+  height: 10px;
+  width: 20%; 
+  -webkit-appearance: none;
+  background-color: #ddd;
+  outline: none;
+  border-radius: 5px;
+  margin: 0 5px;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background-color: #888;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background-color: #9ab5ca;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 701px) and (max-width: 1300px) {
+
+  .slider-button {
+    width: 20px;
+    height: 20px;
+    background-color: #9ab5ca;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    color: #555;
+  }
+
+  .slider {
+    flex: 1;
+    height: 10px;
+    -webkit-appearance: none;
+    background-color: #ddd;
+    outline: none;
+    border-radius: 5px;
+    margin: 0 5px;
+  }
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: #888;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background-color: #9ab5ca;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}
+
+/* End Slider Styles */
+
+.camara-viewer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 62%; /* Adjust the width based on your desired proportions */
+}
+
+.camara-header {
+  padding-top: 10px;
+  font-size: 22px;
+  font-weight: 400;
+  font-family: Roboto, sans-serif;
+  margin-bottom: 0.2em;
+}
+
+.canvas {
+  border: 2px solid #000;
+  display: flex;
+  justify-content: center;
+  /* width: 95%; 
+  height: 92.3%; */
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.canvas img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.dropdown-container {
+  padding-top: 7.2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  margin-left: 1.5em;
+  width: 19%;
+}
+
+.label {
+  margin-bottom: 0.5em;
+}
+
+.boton-seleccion-pallet {
+  margin-top: 2em;
+  height: 2em;
+  width: 10em;
+}

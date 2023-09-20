@@ -1,0 +1,138 @@
+.dispositivo-container1{
+    display: flex;
+    justify-content: center;
+}
+
+.dispositivos-row {
+    display: flex;
+    justify-content: center;
+  }
+  
+
+.dispositivo-temperatura{
+    display: inline-block;
+    /*float: left;*/
+    align-items: center;
+    background-color:#fff;
+    border-radius:5px;
+    border-style:none;
+    box-shadow:1px 1px 7px #e4e4e4;
+    height:80px;
+    margin-bottom:20px;
+    margin-right:30px;
+    margin-top:10px;
+    padding-bottom:3px;
+    width:250px
+}
+
+.dispositivo-informacion{
+    display:flex;
+    flex-direction:row;
+    margin-left:10px;
+    margin-top:5px;
+    align-content: center;
+}
+
+.informacion-aplicacion{
+    align-items: center
+}
+
+.stop-button{
+    position: fixed;
+    margin-left: 1500px;
+    margin-top: 23px;
+    height: 50px;
+    width: 50px;
+    background-color: #fa1b1b;
+    border-style: ridge;
+    border-width: 1px;
+    border-radius: 10%;
+}
+
+.Robot{
+    align-items: center;
+    background-color: #fff;
+    border-radius: 5px;
+    border-style: none;
+    height: 800px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.Robot-header{
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    padding-top:10px;
+    font-size: 22px;
+    font-weight: 400;
+    font-family: Roboto, sans-serif;
+}
+
+.Robot-content{
+    margin-top: 1.5em;
+    height: 94%;
+}
+
+.tower-container{
+    justify-content: center;
+    display:flex;
+    height: 100%;
+}
+
+.tower-division{
+    height: 100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+
+.tower-header{
+    display: inline-block;
+    align-items: center;
+    font-style: Roboto, sans-serif;
+    font-size: 18px;
+}
+
+.tower-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    border-radius: 10px;
+    border: #fff;
+    border-style: solid;
+    width: 70%;
+    height: 95%;
+    background-color: #e9e8e8;
+}
+
+.pallet-row{
+    height: 11%;
+    width: 100%;
+    margin: 1%;
+    border-radius: 5px;
+    border-style: none; 
+    display: flex;  
+    justify-content: center; 
+    align-items: center;
+} 
+
+.pallet-division{
+    height: 100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.petri-dish{
+    height: 30%;
+    width: 40%;
+    border-radius: 20%;
+    border-style: solid;
+    border-width: 10%;
+    background-color: #ead3f5;
+}
