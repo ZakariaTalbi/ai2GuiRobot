@@ -173,3 +173,15 @@ ul a.active span {
   /* margin: 10px; */
 
 }
+
+.button-emrgncy{
+  background-color: #3194f7;
+  color: #fff;
+  font: Roboto, sans-serif;
+  font-size: 1em;
+  font-weight: 600;
+  /* width: 5em; 
+  height: 2.97em; */
+  border-radius: 7.5%;
+  padding: 0 10px;
+}

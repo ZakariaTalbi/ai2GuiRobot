@@ -4,10 +4,11 @@ import "./dialog.css";
 const Dialog = ({ message, onDialog }) => {
   return (
     <div className="outter-div">
-      <div className="dialog-div">
+      <div className="dialog-div" style={{width: "510px", height: "200px"}}>
         <span>{message}</span>
         <div>
-          <span>¿Estás seguro?</span>
+          <br></br>
+          <span style={{paddingBottom: "20px"}}>¿Estás seguro?</span>
         </div>
         <div>
           <button onClick={() => onDialog(true)}>Sí</button>

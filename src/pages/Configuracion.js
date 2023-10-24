@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
+import { toast } from "react-toastify";
+// import Technician from './Technician';
 import './Configuracion.css';
 
 const Configuracion = () => {
@@ -97,6 +98,19 @@ const Configuracion = () => {
 
   const handleSubmitNAlmacenes = async (e) => {
     e.preventDefault();
+
+    const nAlmacenesInt = parseInt(nAlmacenes, 10);
+    if (!Number.isInteger(nAlmacenesInt) || nAlmacenesInt <= 0) {
+      // Handle the case where nAlmacenes is not a positive integer
+      //console.error('nAlmacenes must be a positive integer');
+      // You can display an error message to the user if needed
+
+      toast.error("You must input a real model.", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return;
+    }
+
     try {
       const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/update_n_almacenes/${dispositivo}/`, { //Cuidado con la IP
         method: 'POST',
@@ -162,7 +176,8 @@ const Configuracion = () => {
     setImgsPath(event.target.value);
   };
   const handleInputModelo = (event) => {
-    setModelo(event.target.value);
+    setModelo(event.target.value); 
+ 
   };
   const handleInputNAlmacenes = (event) => {
     setNAlmacenes(event.target.value);
@@ -177,7 +192,7 @@ const Configuracion = () => {
         <span className="cabecera">Panel de configuración del dispositivo</span>
       </div>
       <div className="content">
-        <div className='configuracion-ip'>
+        <div className='configuracion-ip-path'>
           <span className='configuracion-texto'>Introduzca la nueva IP: </span>
           <p></p>
           <input type="text" value={IP} onChange={handleInputIP} />

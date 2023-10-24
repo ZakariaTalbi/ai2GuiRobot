@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-// import AuthContext from "../context/AuthContext";
+import AuthContext from "../context/AuthContext";
 
 import panel from "../icons/display.svg";
 import visual from "../icons/stats.svg"; //chart.svg
@@ -8,19 +8,20 @@ import camara from "../icons/videocam.svg";
 import logout from "../icons/logout.svg";
 import ai2 from "../icons/ai2.png";
 import settings from "../icons/settings.svg";
+import engineering from "../icons/engineering.svg";
 import "./sidebar.css";
 const Sidebar = () => {
-  // let { logoutCall } = useContext(AuthContext);
+  let { logoutCall } = useContext(AuthContext);
 
   const [text, setText] = useState("STOP");
 
   const fetchDispositivoState = async () => {
 
     try {
-      const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/dispositivos/`);
+      const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/estado_dispositivo/`);
       const data = await response.json();
-      let estado = data[0].estado;
-      
+      let estado = data.Estado;
+
       if (estado === 'funciona') {
         setText('STOP');
       } else {
@@ -94,13 +95,24 @@ const Sidebar = () => {
         </NavLink>
 
         <NavLink
-          to={"/Configuracion"}
+          to={"/config"}
           style={{ textDecoration: "none" }}
           className={"link"}
         >
           <li className="sidebar-button">
             <img src={settings} alt="" />
             <span>Configuración</span>
+          </li>
+        </NavLink>
+
+        <NavLink
+          to={"/technician"}
+          style={{ textDecoration: "none" }}
+          className={"link"}
+        >
+          <li className="sidebar-button">
+            <img src={engineering} alt="" />
+            <span>Técnico</span>
           </li>
         </NavLink>
         {/* <NavLink
@@ -124,14 +136,14 @@ const Sidebar = () => {
           </li>
         </NavLink> */}
       </ul>
-      <div className="div-border" style={{ marginTop: "-10px" }}></div>
-      {/* <div className="sidebar-out" onClick={logoutCall}> */}
-      <div className="sidebar-out">
+      <div className="div-border" style={{ marginTop: "70px" }}></div>
+      <div className="sidebar-out" onClick={logoutCall}>
+      {/* <div className="sidebar-out"> */}
         <img src={logout} alt="" />
         <span>Log Out</span>
       </div>
       <div className="emergency-button">
-        <button onClick={handleEmergencyStop}>{text}</button>
+        <button className="button-emrgncy" onClick={handleEmergencyStop}>{text}</button>
       </div>
       {/* <img
         src={ai2}

@@ -77,8 +77,8 @@ const Camaras = () => {
       try {
         const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/dispositivos/`);
         const data = await response.json();
-        setDispositvo(data[0].Modelo);
-        if (data[0].Modelo === "V1") {
+        setDispositvo(data[0].modelo);
+        if (data[0].modelo === "miniTower") {
           setVisible(false);
         } else {
           setVisible(true);
@@ -147,7 +147,7 @@ const Camaras = () => {
             </div>
           )}
 
-          <Link to="/seleccionar">
+          <Link to="/select">
             <button className="boton-seleccion-pallet">Seleccione Pallet</button>
           </Link>
         </div>

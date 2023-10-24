@@ -11,6 +11,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
     <BrowserRouter basename="/ai2app">
+      <script id="DragDropTouch" src="https://bernardo-castilho.github.io/DragDropTouch/DragDropTouch.js"></script>
       <App />
     </BrowserRouter>
   // </React.StrictMode>

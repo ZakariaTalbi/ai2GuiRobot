@@ -13,11 +13,13 @@ export const AuthProvider = ({ children }) => {
       ? jwt_decode(localStorage.getItem("authTokens"))
       : null
   );
+
   let [authTokens, setAuthTokens] = useState(() =>
     localStorage.getItem("authTokens")
       ? JSON.parse(localStorage.getItem("authTokens"))
       : null
   );
+
   let [loading, setLoading] = useState(true);
 
   let navigate = useNavigate();
@@ -25,22 +27,26 @@ export const AuthProvider = ({ children }) => {
   let loginCall = async (e) => {
     e.preventDefault();
 
-    let response = await fetch("/token/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: e.target.username.value,
-        password: e.target.password.value,
-      }),
-    });
+    let response = await fetch(
+      `http://${window.location.hostname}:8000/token/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: e.target.username.value,
+          password: e.target.password.value,
+        }),
+      }
+    );
     let data = await response.json();
 
     if (response.status === 200) {
       setAuthTokens(data);
       setUser(jwt_decode(data.access));
       localStorage.setItem("authTokens", JSON.stringify(data));
+      sessionStorage.setItem('authToken', JSON.stringify(data));
       navigate("/");
     } else {
       alert("Something went wrong!");
@@ -55,16 +61,18 @@ export const AuthProvider = ({ children }) => {
   };
 
   let updateToken = async () => {
-    console.log("!!!!");
-    let response = await fetch("http://127.0.0.1:8000/token/refresh/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        refresh: authTokens?.refresh,
-      }),
-    });
+    let response = await fetch(
+      `http://${window.location.hostname}:8000/token/refresh/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          refresh: authTokens?.refresh,
+        }),
+      }
+    );
 
     let data = await response.json();
 
@@ -98,7 +106,7 @@ export const AuthProvider = ({ children }) => {
       if (authTokens) {
         updateToken();
       }
-    }, 1000 * 60 * 4);
+    }, 1000 * 60 * 20); //tiempo para token/refresh
     return () => clearInterval(interval);
   }, [loading, authTokens]);
 

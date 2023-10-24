@@ -3,10 +3,16 @@ import React, { useState, useEffect, useRef } from "react";
 
 import "./Home.css";
 import "./PalletLayout.css";
+import Dialog from "../components/dialog";
+import CondPlate from "../components/CondPlate";
 import {Sortable} from '@shopify/draggable';
 
 
 const Home = () => {
+
+  const [openPlate, setOpenPlate] = useState(false)
+  const [plateData, setPlateData] = useState({cond:[], condArray:[[]]})
+
   const [almacenes, setAlmacenes] = useState([]);
   const [cassettes, setCassettes] = useState([]);
   const [pallets, setPallets] = useState([]);
@@ -26,19 +32,42 @@ const Home = () => {
   const [slots, setSlots] = useState([]);
   const containerRef = useRef(null);
 
+  const [dialog, setDialog] = useState({
+    message: "",
+    isLoading: false,
+    index: "",
+  });
+
+  const [expVal, setExpVal] = useState({
+    val: "",
+    idExp: -1,
+  });
+
   const handleEstadoSelect = async (event, idExperimentos) => {
     const selectedValue = event.target.value;
     // Check if the selected value is "descargado" and display the confirm message
     if (selectedValue === "descargado") {
-      const confirmed = window.confirm("Are you sure you want to set it as 'descargado'?");
+      // const confirmed = window.confirm("Are you sure you want to set it as 'descargado'?");
 
-      if (!confirmed) {
-        // If the user cancels, revert the selected value
-        event.target.value = estadoExperimentos[idExperimentos];
-        return;
-      } else {
-        handleUpdateEstadoExp(selectedValue, idExperimentos);
-      }
+      // if (!confirmed) {
+      //   // If the user cancels, revert the selected value
+      //   event.target.value = estadoExperimentos[idExperimentos];
+      //   return;
+      // } else {
+      //   handleUpdateEstadoExp(selectedValue, idExperimentos);
+      // }
+
+      setDialog({
+        message: "Va a descargar los pallets (está acción es irreversible)",
+        isLoading: true,
+        index: 0,
+      });
+
+      setExpVal({
+        val: selectedValue,
+        idExp: idExperimentos,
+      })
+
     } else {
       handleUpdateEstadoExp(selectedValue, idExperimentos);
     }
@@ -47,6 +76,15 @@ const Home = () => {
       ...prevExperimentoStates,
       [idExperimentos]: selectedValue,
     }));
+  };
+
+  const areUSureExperiments = async (choose) => {
+    if (choose) {
+      setDialog("", false, "");
+      handleUpdateEstadoExp(expVal.val, expVal.idExp);
+    } else {
+      setDialog("", false, "");
+    }
   };
 
   const handleUpdateEstadoExp = async (nEstado, idExperimento) => {
@@ -237,8 +275,8 @@ useEffect(() => {
 }, [cassettes, almacenes, window.innerHeight, window.innerWidth]);
 
 const printStuff = () => {
-  console.log(`The height is: ${window.innerHeight}, and the width is: ${window.innerWidth}`);
-  console.log("Cassettes:", cassettes, "Almacenes:", almacenes);
+  // console.log(`The height is: ${window.innerHeight}, and the width is: ${window.innerWidth}`);
+  // console.log("Cassettes:", cassettes, "Almacenes:", almacenes);
   //let cheight = (window.innerHeight - (59+78+50+150) - 150) / (cassettes.length*9);
   //let cwidth = (window.innerWidth - 150 - 150) / almacenes.length;
   //console.log("Height:", height);
@@ -249,19 +287,19 @@ const printStuff = () => {
   if (containerRef.current) {
     const { width, height } = containerRef.current.getBoundingClientRect();
     // Use the width and height values as needed
-    console.log("Height:", height);
-    console.log("Width:", width);
+    // console.log("Height:", height);
+    // console.log("Width:", width);
 
     //cheight = (height - (59+78+50+150) - 150) / (cassettes.length*9);
     //cheight = (height - (59+78+50+150) - 150) / 9;
     cheight = (window.innerHeight - (59+78+50+150) - 150) / (cassettes.length*9);
     cwidth = (width - 150 - 150) / almacenes.length;
 
-    console.log(`Calculated Height: ${cheight}. Calculated Width: ${cwidth}`);
+    // console.log(`Calculated Height: ${cheight}. Calculated Width: ${cwidth}`);
   }
 
   if (cheight > (cwidth/9)) {
-    console.log('Caso alto');
+    // console.log('Caso alto');
     setPalletWidth(cwidth);
     cheight = cwidth *0.9689;
     setPalletHeight(cheight/9);
@@ -270,7 +308,7 @@ const printStuff = () => {
     setalmacenSpace(space);
 
   } else {
-    console.log('Caso ancho');
+    // console.log('Caso ancho');
     setPalletHeight(cheight);
     cwidth = cheight /0.9689;
     setPalletWidth(cwidth*9);
@@ -389,17 +427,29 @@ const printStuff = () => {
     setDraggedPallet(null);
     setTargetSlot(null);
   };
-
-  const handleDoubleClick = (idPallet) => {
-    console.log(`Double-clicked on pallet with ID: ${idPallet}`);
-    // Add your desired logic here to display the pallet information
-  };
       
-
   // ----------------------- PALLET SWITCHING ----------------------- //
 
+  // ----------------------- FETCH PALLET ----------------------- //
+  const fetchPallet = (id) => {
+    async function fetchId() {
+      fetch(`http://${window.location.hostname}:8000/local/distr_pallet/` + id, {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setPlateData(data);
+        });
+    }
+
+    fetchId();
+  }
+  // ----------------------- FETCH PALLET ----------------------- //
+
   return (
+    
     <div className="App2">
+      {openPlate && <CondPlate openPlate={openPlate} setOpenPlate={setOpenPlate} plateData={plateData}/>}
       <div className="pallet-experimentos-container">
         {experimentos.map((experimento) => (
           <div key={experimento.idExperimentos} className="experimento-table">
@@ -430,6 +480,12 @@ const printStuff = () => {
           </div>
         ))}
       </div>
+
+      {/* DIALOG */}
+
+      {dialog.isLoading && (
+        <Dialog onDialog={areUSureExperiments} message={dialog.message} />
+      )}
 
       <div className="pallet-layout-container" ref={containerRef}>
         {almacenes.map((almacen) => (
@@ -466,11 +522,16 @@ const printStuff = () => {
                             }}
                             draggable
                             onDragStart={(event) => handleDragStart(event, pallet)}
-                            //onDoubleClick={() => handleDoubleClick(pallet.idPallets)}
                             onDragEnter={(event) => handleDragEnter(event, {almacenId: almacen.id, cassetteId: cassette.id, slotId: slot.slotId,})}
                             onDragOver={handleDragOver}
                             onDragLeave={() => setLeave(null)}
                             onDrop={handleDrop}
+                            onDoubleClick={()=> {
+                              fetchPallet(pallet.idPallets)
+                              setTimeout(() => {
+                                setOpenPlate(true);
+                              }, 75); // delay para que se recalcule antes de visualizar el componente
+                            }}
                             
                           >
                             {`Pallet ${estadoPallet}, ${pallet.estado}`}
