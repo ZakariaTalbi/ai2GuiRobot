@@ -21,9 +21,9 @@ const CondPlate = ({openPlate, setOpenPlate, plateData}) => {
     console.log('=========== USE EFFECT')
 
     const temp_condArray = {...plateData['condArray']}
-    const temp_filas = plateData['condArray'].length
+    const temp_filas = plateData['filas']
     console.log('filas', temp_filas)
-    const temp_col = temp_condArray[0].length
+    const temp_col = plateData['columnas']
     console.log('col', temp_col)
     const temp_nCond = plateData['cond'].length
     console.log('nCond', temp_nCond)
@@ -57,7 +57,7 @@ const CondPlate = ({openPlate, setOpenPlate, plateData}) => {
       new Gradient()
         .setColorGradient("#027df7", "#dcecfc")
         .setMidpoint(
-          temp_nCond + 1
+          temp_nCond + 2
         )
         .getColors()
     );
@@ -182,10 +182,9 @@ const CondPlate = ({openPlate, setOpenPlate, plateData}) => {
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          backgroundColor: condArray[i][j] >= 0
+                          backgroundColor: condArray[i] && condArray[i][j]
                           ? colorGradient[parseFloat(condArray[i][j])]
                           : "rgb(223, 223, 223)",
-                          // colorGradient[parseFloat(condArray[i][j])] || 'white'
                         }}
                       >
                         <span
@@ -195,7 +194,7 @@ const CondPlate = ({openPlate, setOpenPlate, plateData}) => {
                             userSelect: "none",
                           }}
                         >
-                          {condArray[i][j]==null? '': condArray[i][j]+1}
+                          {condArray[i] && condArray[i][j] ? condArray[i][j] : ''}
                         </span>
                       </div>
                     </div>
