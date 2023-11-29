@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, } from "react";
 import "./App.css";
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Camaras from "./pages/Camaras";
 import Login from "./pages/Login";
@@ -11,6 +11,7 @@ import AlarmDialog from "./components/AlarmDialog";
 import Seleccionar from "./pages/SeleccionarPallet";
 import Configuracion from "./pages/Configuracion";
 import Technician from "./pages/Technician";
+import AlarmPage from "./pages/AlarmPage";
 import Nav from "./components/navbar";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import TechnicianRoute from "./utils/TecnicianRoute"
@@ -19,9 +20,11 @@ import { AuthProvider } from "./context/AuthContext";
 function App() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [criticalAlarm, setCriticalAlarm] = useState(false)
+  const [criticalAlarm, setCriticalAlarm] = useState(false);
   const [criticalMessage, setCriticalMessage] = useState("EMERGENCIA. LLAME AL SERVICIO TÉCNICO")
 
+  const navigate = useNavigate();
+  const location = useLocation();
   const [dialog, setDialog] = useState({
     message: "",
     isLoading: false,
@@ -34,56 +37,30 @@ function App() {
     // console.log(window.location.pathname.includes('/login'))
 
     if(!window.location.pathname.includes('/login')){
-    try {
-      const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/handle_alarm`);
-      const data = await response.json();
-      // console.log(`Info de la alarma. Data: ${data.dato}. Alarma: ${data.alarma} `);
-      const contenidoAlarma = JSON.parse(data.alarma);
-      // console.log(`Tipo de alarma: ${contenidoAlarma.critical}`);
-      if (data.dato == 0) {
-        console.log('Sin alarmas');
-      } else {
-        if (contenidoAlarma.critical == 'False'){
-          let alarmMessage1 = "NO ARCHIVE LA ALARMA HASTA SOLUCIONAR EL PROBLEMA.\n";
-          let alarmMessage2 = "Alarma: " + contenidoAlarma.message;
-          let alarmMessage = alarmMessage1 + alarmMessage2;
-          setDialog({
-            message: alarmMessage,
-            isLoading: true,
-            index: 0,
-          });
+      try {
+        const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/handle_alarm`);
+        const data = await response.json();
+        // console.log(`Tipo de alarma: ${contenidoAlarma.critical}`);
+        // console.log(`Alarma: ${data.alarma[1]}`);
+        // const contenidoAlarma = JSON.parse(data.alarma[0]);
+        if (data.dato == 0) {
+          // console.log('Sin alarmas');
+          setDialog("", false, "");
         } else {
-          let critMsg = criticalMessage + ". Alarma: " + contenidoAlarma.message;
-          setCriticalMessage(critMsg);
-          setTimeout(() => {
-            setCriticalAlarm(true);
-          }, 75);
-
-          while (criticalAlarm != false) {
-            //Do nothing and wait a bit for the user to leave before acknowledging the alarm
-            setTimeout(() => {
-              console.error("ALARMA CRÍTICA");
-            }, 5000);
-          }
-          try {
-            const responseFix = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/handle_alarm/`, { //Cuidado con la IP
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify('A'),
+          if (!window.location.pathname.includes('/alarms')){
+            let alarmMessage = "Tiene una alarma o alarmas pendiente en el sistema.\n¿Desea navegar al gestor de alarmas\n?";
+            setDialog({
+              message: alarmMessage,
+              isLoading: true,
+              index: 0,
             });
-
-          } catch (error) {
-            console.error('Error acknowledging the alarm');
-          }
+          } 
         }
-      }
 
-    } catch (error) {
-      console.error("Error fetching the alarm handling", error);
+      } catch (error) {
+        console.error("Error fetching the alarm handling", error);
+      }
     }
-  }
 
   };
 
@@ -99,16 +76,18 @@ function App() {
 
   const areUSureAcknowledge = async (choose) => {
     if (choose) {
+      // Navigate("/alarms");
       setDialog("", false, "");
       // console.log('Acknowledged');
       try {
-            const responseFix = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/handle_alarm/`, { //Cuidado con la IP
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify('A'),
-            });
+            // const responseFix = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/handle_alarm/`, { //Cuidado con la IP
+            //   method: 'POST',
+            //   headers: {
+            //     'Content-Type': 'application/json',
+            //   },
+            //   body: JSON.stringify('A'),
+            // });
+            navigate('/alarms', { replace: true });
 
           } catch (error) {
             console.error('Error acknowledging the alarm');
@@ -137,6 +116,7 @@ function App() {
               <Route path="camaras" element={<Camaras />} />
               <Route path="/select" element={<Seleccionar />} />
               <Route path="/config" element={<Configuracion />} />
+              <Route path="/alarms" element={<AlarmPage />} />
               <Route element={<TechnicianRoute />}>
                 <Route path="/technician" element={<Technician />} />
               </Route>

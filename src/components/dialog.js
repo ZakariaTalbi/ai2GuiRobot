@@ -8,7 +8,7 @@ const Dialog = ({ message, onDialog }) => {
         <span>{message}</span>
         <div>
           <br></br>
-          <span style={{paddingBottom: "20px"}}>¿Estás seguro?</span>
+          <span style={{paddingBottom: "20px"}}>¿Está seguro?</span>
         </div>
         <div>
           <button onClick={() => onDialog(true)}>Sí</button>

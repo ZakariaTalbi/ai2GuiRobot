@@ -1,0 +1,111 @@
+.alarm-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Roboto, sans-serif;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+.alarm-table-header {
+    justify-content: center;
+    display: flex;
+    margin-bottom: 0.65em;
+}
+
+.alarm-list {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-around; */
+    justify-content: center;
+}
+
+.alarm-table {
+    border-radius: 0%;
+}
+
+.alarm-id {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 10%;
+    border-color: #ddd;
+    border-style: solid;
+    border-width: 1px;
+    padding: 0.7em 0;
+    text-align: center;
+}
+
+.alarm-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 27.5%;
+    border-color: #ddd;
+    border-style: solid;
+    border-width: 1px;
+    padding: 0.7em 0;
+    text-align: center;
+}
+
+.alarm-critical {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 15%;
+    border-color: #dddd;
+    border-style: solid;
+    border-width: 1px;
+    padding: 0.7em 0;
+    text-align: center;
+}
+
+.alarm-state {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 27.5%;
+    border-color: #dddd;
+    border-style: solid;
+    border-width: 1px;
+    padding: 0.7em 0;
+    text-align: center;
+}
+
+.alarm-acknowledge {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    border-color: #dddd;
+    border-style: solid;
+    border-width: 1px;
+    padding: 0.7em 0;
+}
+
+.alarm-acknowledge-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* width: 20%; */
+    background-color: #3194f7;
+    color: #fff;
+    font: Roboto, sans-serif;
+    font-size: 1em;
+    font-weight: 500;
+    width: 85px; 
+    height: 1.77em;
+    border-radius: 7.5%;
+
+}
+
+.alarm-acknowledge-p {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

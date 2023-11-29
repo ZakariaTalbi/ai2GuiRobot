@@ -148,7 +148,7 @@ const Camaras = () => {
           )}
 
           <Link to="/select">
-            <button className="boton-seleccion-pallet">Seleccione Pallet</button>
+            <button className="boton-seleccion-pallet" style={{display: 'none'}}>Seleccione Pallet</button>
           </Link>
         </div>
         <div className="camara-viewer">

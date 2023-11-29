@@ -143,7 +143,9 @@ const Sidebar = () => {
         <span>Log Out</span>
       </div>
       <div className="emergency-button">
-        <button className="button-emrgncy" onClick={handleEmergencyStop}>{text}</button>
+        <div className="emergency-envolvent">
+          <button className="button-emrgncy" onClick={handleEmergencyStop}>{text}</button>
+        </div>
       </div>
       {/* <img
         src={ai2}

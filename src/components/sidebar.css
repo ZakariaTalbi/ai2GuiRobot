@@ -161,12 +161,12 @@ ul a.active span {
 .emergency-button {
   padding-top: 150px;
   height: 45px;
-  border-radius: 3px;
+  /* border-radius: 3px; */
   /* width: 220px;
   position: relative; */
   /* left: -75px;
   padding-left: 92px;  */
-  border-radius: 22.5px;
+  /* border-radius: 22.5px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -174,14 +174,24 @@ ul a.active span {
 
 }
 
+.emergency-envolvent{
+  padding: 10px;
+  background-color: #F7DE52;
+  border-style: solid;
+  border-width: 2px;
+}
+
 .button-emrgncy{
-  background-color: #3194f7;
-  color: #fff;
+  /* background-color: #3194f7; */
+  background-color: #FE5A46;
+  color: #000;
   font: Roboto, sans-serif;
   font-size: 1em;
   font-weight: 600;
   /* width: 5em; 
   height: 2.97em; */
-  border-radius: 7.5%;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
   padding: 0 10px;
 }

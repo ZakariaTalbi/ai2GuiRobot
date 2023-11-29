@@ -173,12 +173,19 @@
     justify-content: center;
 }
 
-.dispositivos-row-tec {
+/* .dispositivos-row-tec {
     display: flex;
     flex-direction: row;
     margin-left: 10px;
     margin-top: 5px;
-    /* align-items: center; */
+} */
+
+.row-tec {
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+    margin-top: 5px;
+    justify-content: space-around;
 }
   
 .dispositivo-container-tec {

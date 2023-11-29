@@ -58,7 +58,7 @@ const Home = () => {
       // }
 
       setDialog({
-        message: "Va a descargar los pallets (está acción es irreversible)",
+        message: "Va a descargar los pallets (esta acción es irreversible)",
         isLoading: true,
         index: 0,
       });
@@ -300,9 +300,16 @@ const printStuff = () => {
 
   if (cheight > (cwidth/9)) {
     // console.log('Caso alto');
-    setPalletWidth(cwidth);
+    if(cwidth > 50)
+      setPalletWidth(cwidth);
+    else
+      setPalletWidth(50);
     cheight = cwidth *0.9689;
+    if(cheight > 20)
     setPalletHeight(cheight/9);
+    else
+    setPalletHeight(20);
+    
     //console.log(`This is the height: ${palletHeight}, and this is the width: ${palletWidth}`);
     var space = (200 / (almacenes.length*(1+(almacenes.length/10)))) * (1-((2000 -  window.innerWidth)/2000));
     setalmacenSpace(space);
@@ -453,7 +460,7 @@ const printStuff = () => {
       <div className="pallet-experimentos-container">
         {experimentos.map((experimento) => (
           <div key={experimento.idExperimentos} className="experimento-table">
-            <span className="experimento-cabecera">Experimento {experimento.idExperimentos}</span>
+            <span className="experimento-cabecera">Experimento {experimento.nombreExperimento}</span>
             <div className="experimento-fila-color">
               <span className="span-fila-color">Color</span>
               <div
@@ -519,6 +526,8 @@ const printStuff = () => {
                               width: `${palletWidth}px`,
                               height: `${palletHeight}px`,
                               backgroundColor: pallet.color,
+                              minHeight: "20px",
+                              minWidth: "50px",
                             }}
                             draggable
                             onDragStart={(event) => handleDragStart(event, pallet)}
@@ -550,6 +559,8 @@ const printStuff = () => {
                             style={{
                               width: `${palletWidth}px`,
                               height: `${palletHeight}px`,
+                              minHeight: "20px",
+                              minWidth: "50px",
                             }}>
                               {`Vacío en ${almacen.id} - ${cassette.id} - ${slot.slotId}`}
                             </button>
