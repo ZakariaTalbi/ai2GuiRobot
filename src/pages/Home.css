@@ -90,9 +90,20 @@
 }
 
 .experimento-cabecera {
+  display: inline-block;
   font-family: roboto, sans-serif;
   font-weight: bolder;
   font-size: 17px;
+  width: 128px;
+  margin-right: 0px;
+  position: relative;
+  
+  display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3; /* Restrict content to two lines */
 }
 
 .experimento-fila-color {

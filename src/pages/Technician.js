@@ -531,7 +531,7 @@ const Technician = () => {
     setOptions2(event.target.value);
   };
 
-  const getSensorMessages = async (idPallets) => {
+  const getSensorMessages = async () => {
     try {
       const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/sensor_msgs/`);
       const data = await response.json();
@@ -770,7 +770,7 @@ const Technician = () => {
 
               <div className="dispositivo-container-tec-2" key="5">
                 <div className="container-header-tec" style={{paddingRight: "10px"}}>
-                  <span>Palés descolocados</span>
+                  <span>Pallets descolocados</span>
                 </div>
 
                 <div
@@ -793,7 +793,7 @@ const Technician = () => {
 
               <div className="dispositivo-container-tec-2" key="6">
                 <div className="container-header-tec">
-                  <span>Palés</span>
+                  <span>Pallets</span>
                 </div>
 
                 <div

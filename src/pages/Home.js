@@ -17,6 +17,8 @@ const Home = () => {
   const [cassettes, setCassettes] = useState([]);
   const [pallets, setPallets] = useState([]);
   const [leave, setLeave] = useState([]);
+  const [almacenesNom, setAlmacenesNom] = useState(["0", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]);
+
 
   const [draggedPallet, setDraggedPallet] = useState(null);
   const [targetSlot, setTargetSlot] = useState(null);
@@ -300,25 +302,35 @@ const printStuff = () => {
 
   if (cheight > (cwidth/9)) {
     // console.log('Caso alto');
-    if(cwidth > 50)
-      setPalletWidth(cwidth);
-    else
-      setPalletWidth(50);
+    if(cwidth < 150){
+        setPalletWidth(150);
+    } else{
+        setPalletWidth(cwidth);
+    }
     cheight = cwidth *0.9689;
-    if(cheight > 20)
-    setPalletHeight(cheight/9);
-    else
-    setPalletHeight(20);
-    
+    if(cheight/9 < 20){
+        setPalletHeight(20);
+    } else{
+        setPalletHeight(cheight/9);
+    }
     //console.log(`This is the height: ${palletHeight}, and this is the width: ${palletWidth}`);
     var space = (200 / (almacenes.length*(1+(almacenes.length/10)))) * (1-((2000 -  window.innerWidth)/2000));
     setalmacenSpace(space);
 
   } else {
     // console.log('Caso ancho');
-    setPalletHeight(cheight);
+    if(cheight < 20){
+        setPalletHeight(20);
+    } else{
+        setPalletHeight(cheight);
+    }
     cwidth = cheight /0.9689;
-    setPalletWidth(cwidth*9);
+    if(cwidth*9 < 150){
+        setPalletWidth(150);
+    } else{
+        setPalletWidth(cwidth*9);
+    }
+    
     //console.log(`This is the height: ${palletHeight}, and this is the width: ${palletWidth}`);
     var space = (200 / almacenes.length)*(1-((2000 -  window.innerWidth)/2000));
     setalmacenSpace(space);
@@ -500,7 +512,7 @@ const printStuff = () => {
             paddingLeft: `${almacenSpace}px`,
             paddingRight: `${almacenSpace}px`,
           }}>
-            <h2 className="pallet-layout-header">Almacen: {almacen.id}</h2>
+            <h2 className="pallet-layout-header">Almacen: {almacenesNom[almacen.id]}</h2>
             <div className="pallet-layout">
               {cassettes.map((cassette) => (
                 <div key={cassette.id} className="pallet-container">
@@ -526,8 +538,6 @@ const printStuff = () => {
                               width: `${palletWidth}px`,
                               height: `${palletHeight}px`,
                               backgroundColor: pallet.color,
-                              minHeight: "20px",
-                              minWidth: "50px",
                             }}
                             draggable
                             onDragStart={(event) => handleDragStart(event, pallet)}
@@ -559,8 +569,6 @@ const printStuff = () => {
                             style={{
                               width: `${palletWidth}px`,
                               height: `${palletHeight}px`,
-                              minHeight: "20px",
-                              minWidth: "50px",
                             }}>
                               {`Vacío en ${almacen.id} - ${cassette.id} - ${slot.slotId}`}
                             </button>
