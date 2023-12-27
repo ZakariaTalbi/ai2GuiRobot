@@ -30,6 +30,7 @@ const Home = () => {
   const [palletHeight, setPalletHeight] = useState("50");
   const [palletWidth, setPalletWidth] = useState("200");
   const [almacenSpace, setalmacenSpace] = useState("200");
+  const [sensors, setSensors] = useState([]);
   
   const [slots, setSlots] = useState([]);
   const containerRef = useRef(null);
@@ -302,14 +303,14 @@ const printStuff = () => {
 
   if (cheight > (cwidth/9)) {
     // console.log('Caso alto');
-    if(cwidth < 150){
-        setPalletWidth(150);
+    if(cwidth < 250){
+        setPalletWidth(250);
     } else{
         setPalletWidth(cwidth);
     }
     cheight = cwidth *0.9689;
-    if(cheight/9 < 20){
-        setPalletHeight(20);
+    if(cheight/9 < 30){
+        setPalletHeight(30);
     } else{
         setPalletHeight(cheight/9);
     }
@@ -319,14 +320,14 @@ const printStuff = () => {
 
   } else {
     // console.log('Caso ancho');
-    if(cheight < 20){
-        setPalletHeight(20);
+    if(cheight < 30){
+        setPalletHeight(30);
     } else{
         setPalletHeight(cheight);
     }
     cwidth = cheight /0.9689;
-    if(cwidth*9 < 150){
-        setPalletWidth(150);
+    if(cwidth*9 < 250){
+        setPalletWidth(250);
     } else{
         setPalletWidth(cwidth*9);
     }
@@ -465,6 +466,49 @@ const printStuff = () => {
   }
   // ----------------------- FETCH PALLET ----------------------- //
 
+  // ----------------------- GET SENSORS ----------------------- //
+
+  const getSensorMessages = async () => {
+    try {
+      const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/sensor_msgs/`);
+      const data = await response.json();
+      setSensors(data);
+      // console.log(data)
+      // console.log(sensors.palet_descolocat_1)
+      return data;
+    } catch (error) {
+      console.error("Error fetching sensor messages:", error);
+      return "#747478"; // Return a default color in case of an error
+    }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(getSensorMessages, 1000);
+  
+    // Fetch initial pallets and set colors once after fetching
+    getSensorMessages();
+  
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+  const setCollorPallet = (valueLetter) => {
+    let auxLetter = valueLetter.toLowerCase();
+    let strForSensor = "caset_" + auxLetter;
+    if (sensors[strForSensor] == "True") {
+      // console.log("verde que te quiero verde", sensors[strForSensor], strForSensor);
+      return "4px solid rgba(29, 161, 73, 0.856)"
+    }
+    else {
+      // console.log("ay rojo que te cojo", sensors[strForSensor], strForSensor);
+      return "4px solid rgba(221, 71, 71, 0.856)"
+    }
+
+  };
+
+  // ----------------------- GET SENSORS ----------------------- //
+
   return (
     
     <div className="App2">
@@ -514,10 +558,12 @@ const printStuff = () => {
           }}>
             <h2 className="pallet-layout-header">Almacen: {almacenesNom[almacen.id]}</h2>
             <div className="pallet-layout">
-              {cassettes.map((cassette) => (
-                <div key={cassette.id} className="pallet-container">
+              <div className="pallet-border-1">
+              {cassettes.reverse().map((cassette) => (
+                <div key={cassette.id} className="pallet-container" style={{border: `${setCollorPallet(almacenesNom[almacen.id])}`,}}>
+                  <div className="pallet-border-1">
                   {slots
-                    .filter((slot) => slot.cassetteId === cassette.id)
+                    .filter((slot) => slot.cassetteId === cassette.id).reverse()
                     .map((slot) => {
                       const slotKey = getSlotKey(slot.cassetteId, slot.slotId);
                       const pallet = pallets.find(
@@ -576,8 +622,10 @@ const printStuff = () => {
                         );
                       }
                     })}
+                  </div>
                 </div>
               ))}
+              </div>
             </div>
           </div>
         ))}

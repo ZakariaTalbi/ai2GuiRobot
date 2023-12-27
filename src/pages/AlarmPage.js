@@ -28,6 +28,7 @@ const AlarmPage = () => {
       // console.log(`Este es el valor: ${valor}`);
       window.location.reload(false);
     } catch (error) {
+      setAlarms(null);
       console.error(error);
     }
 
@@ -42,15 +43,16 @@ const AlarmPage = () => {
         // console.log('Sin alarmas');
         setAlarms(null);
       } else {
-        let my_val = data.alarma.map((alarmString) => (JSON.parse(alarmString)));
-        const boolValue = JSON.parse(my_val[0].critical.toLowerCase());
-        console.log(my_val);
-        let aux1 = user.permission | (!boolValue);
-        setAlarms(my_val);
+          let my_val = data.alarma.map((alarmString) => (JSON.parse(alarmString)));
+          const boolValue = JSON.parse(my_val[0].critical.toLowerCase());
+          console.log(my_val);
+          let aux1 = user.permission | (!boolValue);
+          setAlarms(my_val);
       }
 
     } catch (error) {
-      console.error("Error fetching the alarm handling", error);
+        // setAlarms(null);
+        console.error("Error fetching the alarm handling", error);
     }
     
 

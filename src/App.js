@@ -11,10 +11,11 @@ import AlarmDialog from "./components/AlarmDialog";
 import Seleccionar from "./pages/SeleccionarPallet";
 import Configuracion from "./pages/Configuracion";
 import Technician from "./pages/Technician";
+import TechConf from "./pages/TechConf";
 import AlarmPage from "./pages/AlarmPage";
 import Nav from "./components/navbar";
 import PrivateRoutes from "./utils/PrivateRoutes";
-import TechnicianRoute from "./utils/TecnicianRoute"
+import TechnicianRoute from "./utils/TecnicianRoute";
 import { AuthProvider } from "./context/AuthContext";
 
 function App() {
@@ -119,6 +120,9 @@ function App() {
               <Route path="/alarms" element={<AlarmPage />} />
               <Route element={<TechnicianRoute />}>
                 <Route path="/technician" element={<Technician />} />
+              </Route>
+              <Route element={<TechnicianRoute />}>
+                <Route path="/techconf" element={<TechConf />} />
               </Route>
             </Route>
           </Routes>

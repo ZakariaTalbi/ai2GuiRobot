@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { toast } from "react-toastify";
 // import Technician from './Technician';
 import './Configuracion.css';
@@ -6,9 +6,9 @@ import './Configuracion.css';
 const Configuracion = () => {
   const [IP, setIP] = useState('');
   const [imgsPath, setImgsPath] = useState('');
-  const [modelo, setModelo] = useState('');
-  const [nAlmacenes, setNAlmacenes] = useState('');
-  const [nCassettes, setNCassettes] = useState('');
+  const [IPRemote, setIPRemote] = useState('');
+  const [hora, setHora] = useState('');
+  const horaRef = useRef(null);
 
   const [dispositivo, setDispositivo] = useState("");
 
@@ -53,7 +53,7 @@ const Configuracion = () => {
   const handleSubmitImgsPath = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/update_path/${dispositivo}/`, {
+      const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/update_path_remote/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -73,15 +73,15 @@ const Configuracion = () => {
     }
   };
 
-  const handleSubmitModelo = async (e) => {
+  const handleSubmitIPRemote = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/update_modelo/${dispositivo}/`, {
+      const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/update_ip_remote/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ modelo }),
+        body: JSON.stringify({ IPRemote }),
       });
       if (response.ok) {
         // Update was successful
@@ -89,6 +89,7 @@ const Configuracion = () => {
       } else {
         // Update failed
         // Do something, e.g., display an error message
+        window.alert("¡Seleccione una IP Correcta!");
       }
     } catch (error) {
       // Error occurred during the update
@@ -96,66 +97,25 @@ const Configuracion = () => {
     }
   };
 
-  const handleSubmitNAlmacenes = async (e) => {
+  const handleSubmitHora=  async (e) => {
     e.preventDefault();
 
-    const nAlmacenesInt = parseInt(nAlmacenes, 10);
-    if (!Number.isInteger(nAlmacenesInt) || nAlmacenesInt <= 0) {
-      // Handle the case where nAlmacenes is not a positive integer
-      //console.error('nAlmacenes must be a positive integer');
-      // You can display an error message to the user if needed
-
-      toast.error("You must input a real model.", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+    if (!horaRef.current.value) {
+      window.alert("¡Seleccione una hora!");
       return;
     }
 
-    try {
-      const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/update_n_almacenes/${dispositivo}/`, { //Cuidado con la IP
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ nAlmacenes }),
-      });
-      // const response = await fetch(`http://localhost:8000/local/update_n_almacenes/${dispositivo}/`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({ nAlmacenes }),
-      // });
-      if (response.ok) {
-        // Update was successful
-        // Do something, e.g., display a success message
-      } else {
-        // Update failed
-        // Do something, e.g., display an error message
-      }
-    } catch (error) {
-      // Error occurred during the update
-      // Do something, e.g., display an error message
-    }
-  };
+    // console.log(horaRef.current.value);
+    let timeSet = horaRef.current.value
 
-  const handleSubmitNCassettes = async (e) => {
-    e.preventDefault();
     try {
-      const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/update_n_cassettes/${dispositivo}/`, { //Cuidado con la IP
+      const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/update_backup_time/`, { //Cuidado con la IP
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ nCassettes }),
+        body: JSON.stringify({ timeSet }),
       });
-      // const response = await fetch(`http://localhost:8000/local/update_n_cassettes/${dispositivo}/`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({ nCassettes }),
-      // });
       if (response.ok) {
         // Update was successful
         // Do something, e.g., display a success message
@@ -175,15 +135,12 @@ const Configuracion = () => {
   const handleInputImgsPath = (event) => {
     setImgsPath(event.target.value);
   };
-  const handleInputModelo = (event) => {
-    setModelo(event.target.value); 
+  const handleInputIPRemote = (event) => {
+    setIPRemote(event.target.value); 
  
   };
-  const handleInputNAlmacenes = (event) => {
-    setNAlmacenes(event.target.value);
-  };
-  const handleInputNCassettes = (event) => {
-    setNCassettes(event.target.value);
+  const handleInputHora = (event) => {
+    setHora(event.target.value);
   };
 
   return (
@@ -192,35 +149,41 @@ const Configuracion = () => {
         <span className="cabecera">Panel de configuración del dispositivo</span>
       </div>
       <div className="content">
+        <span className="config-disp-texto" style={{
+          margin: "20px 0",
+          fontWeight: "bold",
+          fontSize: "18px",
+        }}>Configuración propia del dispositivo</span>
         <div className='configuracion-ip-path'>
-          <span className='configuracion-texto'>Introduzca la nueva IP: </span>
+          <span className='configuracion-texto'>Introduzca la IP del dispositivo: </span>
           <p></p>
           <input type="text" value={IP} onChange={handleInputIP} />
           <button className='configuracion-boton'  onClick={handleSubmitIP}>Submit</button>
         </div>
+        <span className="config-remoto-texto" style={{
+          margin: "20px 0",
+          paddingBottom: "10px",
+          fontWeight: "bold",
+          fontSize: "18px",
+        }}>Configuración para la copia de imágenes en remoto</span>
         <div className='configuracion-path-imagenes'>
-          <span className='configuracion-texto'>Introduzca el nuevo path para el almacenamiento de las imágenes: </span>
+          <span className='configuracion-texto'>Introduzca el path remoto para el almacenamiento de las imágenes: </span>
           <p></p>
           <input type="text" value={imgsPath} onChange={handleInputImgsPath} />
           <button className='configuracion-boton'  onClick={handleSubmitImgsPath}>Submit</button>
         </div>
         <div className='configuracion-modelo'>
-          <span className='configuracion-texto'>Introduzca el tipo de modelo: </span>
+          <span className='configuracion-texto'>Introduzca la IP en la que almacenar las imágenes en remoto: </span>
           <p></p>
-          <input type="text" value={modelo} onChange={handleInputModelo} />
-          <button className='configuracion-boton'  onClick={handleSubmitModelo}>Submit</button>
+          <input type="text" value={IPRemote} onChange={handleInputIPRemote} />
+          <button className='configuracion-boton'  onClick={handleSubmitIPRemote}>Submit</button>
         </div>
         <div className='configuracion-n-almacenes'>
-          <span className='configuracion-texto'>Introduzca el número de almacenes: </span>
+          <span className='configuracion-texto'>Introduzca la hora en la que realizar la copia de las imágenes: </span>
           <p></p>
-          <input type="text" value={nAlmacenes} onChange={handleInputNAlmacenes} />
-          <button className='configuracion-boton'  onClick={handleSubmitNAlmacenes}>Submit</button>
-        </div>
-        <div className='configuracion-n-cassettes'>
-          <span className='configuracion-texto'>Introduzca el número de cassettes: </span>
-          <p></p>
-          <input type="text" value={nCassettes} onChange={handleInputNCassettes} />
-          <button className='configuracion-boton'  onClick={handleSubmitNCassettes}>Submit</button>
+          {/* <input type="text" value={hora} onChange={handleInputHora} /> */}
+          <input className="input-field" type="time" ref={horaRef} />
+          <button className='configuracion-boton'  onClick={handleSubmitHora}>Submit</button>
         </div>
       </div>
     </div>

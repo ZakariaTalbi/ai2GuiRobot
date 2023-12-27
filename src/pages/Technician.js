@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
+
+import settings from "../icons/settings.svg";
 import './Technician.css';
 
 const Technician = () => {
@@ -431,9 +434,11 @@ const Technician = () => {
         } else if ((data.status === 'unreachable') || (data.status === 'error')) {
             // console.log(`Status is: ${data.status}`);
             if(valor==1){
-                setLedColor("off"); }
+                setLedColor("off");
+                setDockerProc("0"); }
             else if(valor==2){
-                setLedColor2("off");}
+                setLedColor2("off");
+                setDockerProc2("0"); }
             return;
         }
     } catch (error) {
@@ -558,6 +563,22 @@ const Technician = () => {
 
   return (
       <div className="configuracion">
+        <NavLink
+          to={"/techconf"}
+          style={{ textDecoration: "none" }}
+          className={"link"}
+        >
+          <li className="" style={{
+            display: "flex",
+            flexDirection: "center",
+            alignItems: "center",
+            justifyContent: "center",
+            paddingBottom: "15px"
+          }}>
+            <img src={settings} alt="" />
+            <span>Configuración Técnico</span>
+          </li>
+        </NavLink>
         <div className="configuracion-panel">
           <span className="cabecera">Estado y control del sistema</span>
         </div>
@@ -815,6 +836,29 @@ const Technician = () => {
               </div>
 
               <div className="dispositivo-container-tec-2" key="7">
+                <div className="container-header-tec">
+                  <span>Cassettes</span>
+                </div>
+
+                <div
+                  className="border-div-tec"
+                  style={{ width: "100px", height: "5px", marginBottom: "7px"}}
+                  key="6"
+                ></div>
+
+                <div className="info-div-tec">
+                  <span>A</span>
+                  <label className="label-tec-sensors">{sensors.caset_a}</label>
+                </div>
+
+                <div className="info-div-tec">
+                  <span>B</span>
+                  <label className="label-tec-sensors">{sensors.caset_b}</label>
+                </div>
+
+              </div>
+
+              <div className="dispositivo-container-tec-2" key="8">
                 <div className="container-header-tec">
                   <span>Estado ambiental</span>
                 </div>

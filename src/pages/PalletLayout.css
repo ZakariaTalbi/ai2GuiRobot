@@ -10,7 +10,26 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 7px; /* Adjust the spacing between containers */
+  /* margin-bottom: 7px; */
+  border: 4px solid rgba(221, 71, 71, 0.856);
+}
+
+.pallet-border-1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  /* margin-bottom: 4px; */
+  /* margin: 5px; */
+}
+
+.pallet-border-2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 7px;
   border: 2px solid black;
 }
 

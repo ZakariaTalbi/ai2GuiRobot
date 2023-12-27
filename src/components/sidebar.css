@@ -159,7 +159,7 @@ ul a.active span {
 }
 
 .emergency-button {
-  padding-top: 150px;
+  padding-top: 30px;
   height: 45px;
   /* border-radius: 3px; */
   /* width: 220px;
@@ -195,3 +195,16 @@ ul a.active span {
   border-radius: 50%;
   padding: 0 10px;
 }
+
+/* .off-button-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 150px;
+} */
+
+/* .button-off {
+  height: 30px;
+  width: 70px;
+  font-size: 17px;
+} */

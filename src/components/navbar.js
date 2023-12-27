@@ -38,8 +38,8 @@ const Navbar = () => {
     try {
       const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/capture_progress/`);
       const data = await response.json();
-      console.log(data);
-      console.log(captState);
+      // console.log(data);
+      // console.log(captState);
       setCaptState(data.is_capturing);
       setCaptPer(data.percentage);
       // console.log(data)
