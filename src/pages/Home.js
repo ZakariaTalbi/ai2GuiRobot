@@ -10,8 +10,9 @@ import {Sortable} from '@shopify/draggable';
 
 const Home = () => {
 
-  const [openPlate, setOpenPlate] = useState(false)
-  const [plateData, setPlateData] = useState({cond:[], condArray:[[]]})
+  const [openPlate, setOpenPlate] = useState(false);
+  const [plateData, setPlateData] = useState({cond:[], condArray:[[]]});
+  const [plateLocation, setPlateLocation] = useState("C1-P1");
 
   const [almacenes, setAlmacenes] = useState([]);
   const [cassettes, setCassettes] = useState([]);
@@ -92,7 +93,16 @@ const Home = () => {
 
   const handleUpdateEstadoExp = async (nEstado, idExperimento) => {
     
-    console.log('Hola desde el cambio');
+    // console.log('Hola desde el cambio');
+    if (nEstado == "descargado") {
+      console.log("Descargando")
+      const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/control/${idExperimento}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
     try {
       const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/local/update_est_exp/${idExperimento}/`, {
         method: 'POST',
@@ -512,7 +522,7 @@ const printStuff = () => {
   return (
     
     <div className="App2">
-      {openPlate && <CondPlate openPlate={openPlate} setOpenPlate={setOpenPlate} plateData={plateData}/>}
+      {openPlate && <CondPlate openPlate={openPlate} setOpenPlate={setOpenPlate} plateData={plateData} plateLocation={plateLocation}/>}
       <div className="pallet-experimentos-container">
         {experimentos.map((experimento) => (
           <div key={experimento.idExperimentos} className="experimento-table">
@@ -595,6 +605,7 @@ const printStuff = () => {
                               fetchPallet(pallet.idPallets)
                               setTimeout(() => {
                                 setOpenPlate(true);
+                                setPlateLocation(`Cassette ${almacenesNom[almacen.id]} - Posición ${slot.slotId}`);
                               }, 75); // delay para que se recalcule antes de visualizar el componente
                             }}
                             

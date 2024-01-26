@@ -3,7 +3,7 @@ import Gradient from "javascript-color-gradient";
 
 import "./CondPlate.css";
 
-const CondPlate = ({openPlate, setOpenPlate, plateData}) => {
+const CondPlate = ({openPlate, setOpenPlate, plateData, plateLocation}) => {
   const [numCond, setNumCond] = useState(1);
   const [filas, setFilas] = useState(1);
   const [columnas, setColumnas] = useState(1);
@@ -19,6 +19,7 @@ const CondPlate = ({openPlate, setOpenPlate, plateData}) => {
 
   useEffect(() => {
     console.log('=========== USE EFFECT')
+    // console.log(plateLocation)
 
     const temp_condArray = {...plateData['condArray']}
     const temp_filas = plateData['filas']
@@ -113,6 +114,9 @@ const CondPlate = ({openPlate, setOpenPlate, plateData}) => {
                 {i + 1}{`: ${plateData['cond'][i]}`}
               </div>
             ))}
+            <div>
+            <span className="cond-element" style={{color: '#888',}}>{plateLocation}</span>
+            </div>
           </div>
         </div>
         <br />
